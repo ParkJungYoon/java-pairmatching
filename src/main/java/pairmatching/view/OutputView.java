@@ -1,8 +1,10 @@
 package pairmatching.view;
 
 import pairmatching.domain.Course;
+import pairmatching.domain.Crew;
 import pairmatching.domain.Level;
 
+import java.util.List;
 import java.util.StringJoiner;
 
 public class OutputView {
@@ -13,6 +15,7 @@ public class OutputView {
     private final static String FEATURE_FOUR = "Q. 종료";
     private final static String COURSE_LIST = "과정: ";
     private final static String MISSION_LIST = "미션: ";
+    private final static String MISSION_LEVEL_LIST = "  - %s: ";
     private final static String DIVIDING_LINE = "#############################################";
     private final static String CHOOSE_MESSAGE = "과정, 레벨, 미션을 선택하세요.";
 
@@ -35,21 +38,38 @@ public class OutputView {
         System.out.println(COURSE_LIST + sj.toString());
     }
 
-    private static void printMisson() {
-        StringJoiner sj = new StringJoiner(" | ");
-
+    private static void printMission() {
         System.out.println(MISSION_LIST);
-//        System.out.println(COURSE_LIST + sj.toString());
+        for (Level levelName : Level.values()) {
+            System.out.printf(MISSION_LEVEL_LIST, levelName.getName());
+            System.out.println(levelName.getMission());
+        }
     }
 
-    public static void printCourseAndMisson() {
+    public static void printCourseAndMission() {
         System.out.println(DIVIDING_LINE);
         printCourse();
-        printMisson();
+        printMission();
         System.out.println(DIVIDING_LINE);
     }
 
     public static void printChooseMessage() {
         System.out.println(CHOOSE_MESSAGE);
+    }
+
+    public static void printErrorMessage(IllegalArgumentException e) {
+        System.out.println(e.getMessage());
+    }
+
+    public static void printPairMatchingResult(List<List<Crew>> pair) {
+        System.out.println("페어 매칭 결과입니다.");
+        StringJoiner sj;
+        for (List<Crew> onePair : pair) {
+            sj = new StringJoiner(" : ");
+            for (Crew one : onePair) {
+                sj.add(one.toString());
+            }
+            System.out.println(sj.toString());
+        }
     }
 }

@@ -9,7 +9,7 @@ public class Transform {
         String[] splitedInput = Arrays.stream(input.split(","))
                 .map(String::trim)
                 .toArray(String[]::new);
-        List<String> courseAndMission = new ArrayList<>(List.of(splitedInput));
+        List<String> courseAndMission = Arrays.asList(splitedInput);
         return courseAndMission;
     }
 }

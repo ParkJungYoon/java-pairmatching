@@ -6,7 +6,7 @@ import static pairmatching.validator.CommandValidator.validateInvalidType;
 
 public class InputView {
 
-    public static String readFunctionNumber() {
+    public static String readFeatureNumber() {
         OutputView.printStartMessage();
         OutputView.printFeatureList();
         String input = Console.readLine();
@@ -16,7 +16,7 @@ public class InputView {
     }
 
     public static String readMatchingCourseAndMission() {
-        OutputView.printCourseAndMisson();
+        OutputView.printCourseAndMission();
         OutputView.printChooseMessage();
 
         return Console.readLine();
