@@ -14,4 +14,11 @@ public class InputView {
         validateInvalidType(input);
         return input;
     }
+
+    public static String readMatchingCourseAndMission() {
+        OutputView.printCourseAndMisson();
+        OutputView.printChooseMessage();
+
+        return Console.readLine();
+    }
 }
