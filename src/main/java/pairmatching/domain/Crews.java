@@ -5,23 +5,23 @@ import camp.nextstep.edu.missionutils.Randoms;
 import java.util.List;
 
 public class Crews {
-    private List<Crew> crewNames;
+    private final List<Crew> crewNames;
 
     public Crews(List<Crew> crewNames) {
         this.crewNames = crewNames;
     }
 
-    public List<Crew> shuffleCrew() {
+    public Crews shuffleCrew() {
         List<Crew> shuffledCrew = Randoms.shuffle(crewNames);
-//        System.out.println(shuffledCrew.toString());
-//        for (Crew crew : shuffledCrew) {
-//            System.out.println(crew.toString());
-//        }
-        return shuffledCrew;
+        return new Crews(shuffledCrew);
     }
 
-    public void makeFair() {
+    public int size() {
+        return crewNames.size();
+    }
 
+    public Crew get(int index) {
+        return crewNames.get(index);
     }
 
     @Override

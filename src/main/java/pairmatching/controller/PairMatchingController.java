@@ -23,14 +23,22 @@ public class PairMatchingController {
     Crews backendCrews;
     Crews frontendCrews;
 
+    public void matchingMenu() {
+        String feature = initFeatureNumber();
+        if (Objects.equals(feature, "1")) {
+            matchingStart();
+        } else if (Objects.equals(feature, "2")) {
+
+        }
+    }
+
     public void matchingStart() {
         String feature = initFeatureNumber();
         do {
             List<String> courseAndMission = initCourseAndMission();
             if (Objects.equals(courseAndMission.get(0), "백엔드")) {
                 initBackEndCrew();
-                System.out.println("여기까지?");
-                List<List<Crew>> pair = createPair(backendCrews);
+                List<Crews> pair = createPair(backendCrews);
                 OutputView.printPairMatchingResult(pair);
                 feature = initFeatureNumber();
             } else if (Objects.equals(courseAndMission.get(0), "프론트엔드")) {
@@ -39,25 +47,38 @@ public class PairMatchingController {
         } while (!Objects.equals(feature, "Q"));
     }
 
-    private List<List<Crew>> createPair(Crews crews) {
-        List<List<Crew>> pair = new ArrayList<>();
-        List<Crew> shuffledCrew = crews.shuffleCrew();
-
+    private List<Crews> createPair(Crews crews) {
+        List<Crews> pair = new ArrayList<>();
+        Crews shuffledCrew = crews.shuffleCrew();
+        System.out.println(shuffledCrew.toString());
         List<Crew> temp = new ArrayList<>();
-        for (Crew crew : shuffledCrew) {
+
+        for (int i = 0; i < shuffledCrew.size(); i++) {
+            Crew crew = shuffledCrew.get(i);
             temp.add(crew);
             if (temp.size() >= 2) {
-                pair.add(temp);
+                Crews crews1 = new Crews(temp);
+                pair.add(crews1);
                 temp = new ArrayList<>();
             }
         }
-        if (temp.size() == 1) {
-            pair.get(pair.size() - 1).add(temp.get(0));
-        }
+
+//        for (Crew crew : shuffledCrew) {
+//            temp.add(crew);
+//            if (temp.size() >= 2) {
+//                Crews crews1 = new Crews(temp);
+//                pair.add(crews1);
+//                temp = new ArrayList<>();
+//            }
+//        }
+//        if (temp.size() == 1) {
+//            pair.get(pair.size() - 1).add(temp.get(0));
+//        }
+        saveMatchingPair("레벨1", "자동차경주", pair);
         return pair;
     }
 
-    private void saveMatchingPair(String level, String mission, List<List<Crew>> pair) {
+    private void saveMatchingPair(String level, String mission, List<Crews> pair) {
         MatchingResult matchingResult = new MatchingResult();
         if (Objects.equals(level, "레벨1")) {
             matchingResult.saveLevel1MatchingResult(mission, pair);
@@ -72,7 +93,8 @@ public class PairMatchingController {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
-                Crew crew = new Crew(Course.BACKEND, line);
+                Crew crew = new Crew(Course.BACKEND, line);                Crew crew = new Crew(Course.BACKEND, line);
+//                Crew crew = new Crew(line);
                 backendCrew.add(crew);
             }
         } catch (IOException e) {
@@ -89,6 +111,7 @@ public class PairMatchingController {
             String line;
             while ((line = br.readLine()) != null) {
                 Crew crew = new Crew(Course.FRONTEND, line);
+//                Crew crew = new Crew(line);
                 frontendCrew.add(crew);
             }
         } catch (IOException e) {

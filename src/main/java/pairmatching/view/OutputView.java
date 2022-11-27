@@ -2,6 +2,7 @@ package pairmatching.view;
 
 import pairmatching.domain.Course;
 import pairmatching.domain.Crew;
+import pairmatching.domain.Crews;
 import pairmatching.domain.Level;
 
 import java.util.List;
@@ -61,12 +62,13 @@ public class OutputView {
         System.out.println(e.getMessage());
     }
 
-    public static void printPairMatchingResult(List<List<Crew>> pair) {
+    public static void printPairMatchingResult(List<Crews> pair) {
         System.out.println("페어 매칭 결과입니다.");
         StringJoiner sj;
-        for (List<Crew> onePair : pair) {
+        for (Crews onePair : pair) {
             sj = new StringJoiner(" : ");
-            for (Crew one : onePair) {
+            for (int i = 0; i < onePair.size(); i++) {
+                Crew one = onePair.get(i);
                 sj.add(one.toString());
             }
             System.out.println(sj.toString());
