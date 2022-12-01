@@ -17,4 +17,8 @@ public class OutputView {
         System.out.println(PAIR_INITIALIZATION_FEATURE);
         System.out.println(END_OF_PAIR_MATCHING);
     }
+
+    public static void printErrorMessage(String error) {
+        System.out.println(error);
+    }
 }
