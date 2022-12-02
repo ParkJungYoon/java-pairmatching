@@ -34,4 +34,11 @@ public enum Level {
         }
         return false;
     }
+
+    public static boolean hasCorrectMission(String name, String mission) {
+        for (Level level : Level.values()) {
+            if (Objects.equals(level.getName(), name) && level.getMissionName().contains(mission)) return true;
+        }
+        return false;
+    }
 }

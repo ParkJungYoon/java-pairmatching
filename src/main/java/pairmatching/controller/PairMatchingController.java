@@ -16,6 +16,7 @@ import java.util.List;
 import static java.lang.Math.min;
 import static pairmatching.util.Transform.splitInput;
 import static pairmatching.validator.CommandValidator.validateInvalidMenuCommand;
+import static pairmatching.validator.CommandsValidator.validateCourseLevelMission;
 import static pairmatching.validator.CommandsValidator.validateSize;
 
 public class PairMatchingController {
@@ -77,6 +78,6 @@ public class PairMatchingController {
     private String initCourseLevelMission() {
         List<String> commands = splitInput(InputView.readCourseLevelMission());
         validateSize(commands);
-
+        validateCourseLevelMission(commands);
     }
 }
