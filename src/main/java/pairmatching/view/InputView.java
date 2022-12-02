@@ -9,4 +9,9 @@ public class InputView {
 
         return Console.readLine();
     }
+
+    public static String readCourseLevelMission() {
+        OutputView.printCourseLevelMission();
+        return Console.readLine();
+    }
 }
