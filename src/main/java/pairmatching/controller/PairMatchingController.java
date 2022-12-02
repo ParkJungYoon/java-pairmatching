@@ -28,12 +28,11 @@ public class PairMatchingController {
             if (initRematching()) {
                 getPair(Course.getTypeByName(commands.get(0)), commands.get(2));
                 PairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
+                return;
             }
         }
-        if (!hasResult) {
-            getPair(Course.getTypeByName(commands.get(0)), commands.get(2));
-            PairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
-        }
+        getPair(Course.getTypeByName(commands.get(0)), commands.get(2));
+        PairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
     }
 
     private void getPair(Course course, String mission) {
@@ -42,6 +41,11 @@ public class PairMatchingController {
         if (course == Course.FRONTEND) shuffledCrew = pairGenerator.generate(frontEndCrew);
         if (course == Course.BACKEND) shuffledCrew = pairGenerator.generate(backEndCrew);
 
+        List<Pair> pairMatching = createPair(shuffledCrew);
+        PairMatchingResult.savePairMatchingResult(course, mission, pairMatching);
+    }
+
+    private List<Pair> createPair(List<Crew> shuffledCrew) {
         List<Pair> pairMatching = new ArrayList<>();
         int limit = 2;
         for (int id = 0; id < shuffledCrew.size(); id += limit) {
@@ -53,7 +57,7 @@ public class PairMatchingController {
             List<Crew> pair = new ArrayList<>(shuffledCrew.subList(id, min(id + limit, shuffledCrew.size())));
             pairMatching.add(new Pair(pair));
         }
-        PairMatchingResult.savePairMatchingResult(course, mission, pairMatching);
+        return pairMatching;
     }
 
     public void startPairLookUp() {
@@ -62,10 +66,9 @@ public class PairMatchingController {
         boolean hasResult = PairMatchingResult.hasMatchingResult(Course.getTypeByName(commands.get(0)), commands.get(2));
         if (hasResult) {
             PairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
+            return;
         }
-        if (!hasResult) {
-            OutputView.printNothingToLookUpMessage();
-        }
+        OutputView.printNothingToLookUpMessage();
     }
 
     public void startInitialization() {
