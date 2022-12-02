@@ -1,11 +1,25 @@
 package pairmatching.view;
 
+import org.junit.platform.commons.util.StringUtils;
+import org.mockito.internal.util.StringUtil;
+import pairmatching.domain.Course;
+import pairmatching.domain.Level;
+
+import java.util.StringJoiner;
+
 public class OutputView {
     private static final String SELECT_FEATURES_MESSAGE = "기능을 선택하세요.";
     private static final String PAIR_MATCHING_FEATURE = "1. 페어 매칭";
     private static final String PAIR_LOOKUP_FEATURE = "2. 페어 조회";
     private static final String PAIR_INITIALIZATION_FEATURE = "3. 페어 초기화";
     private static final String END_OF_PAIR_MATCHING = "Q. 종료";
+    private static final String DIVIDING_LINE = "#############################################";
+    private static final String COURSE = "과정: ";
+    private static final String MISSION = "미션:";
+    private static final String MISSION_FORMAT = "  - %s: %s";
+    private static final String SELECT_COURSE_LEVEL_MISSION_MESSAGE = "과정, 레벨, 미션을 선택하세요.";
+    private static final String SELECT_COURSE_LEVEL_MISSION_EXAMPLE = "ex) 백엔드, 레벨1, 자동차경주";
+
 
     public static void printSelectFeatureMessage() {
         System.out.println(SELECT_FEATURES_MESSAGE);
@@ -16,6 +30,37 @@ public class OutputView {
         System.out.println(PAIR_LOOKUP_FEATURE);
         System.out.println(PAIR_INITIALIZATION_FEATURE);
         System.out.println(END_OF_PAIR_MATCHING);
+    }
+
+    public static void printCourseLevelMission() {
+        System.out.println(DIVIDING_LINE);
+        printCourse();
+        printMission();
+        System.out.println(DIVIDING_LINE);
+        printSelectCourseLevelMissionMessage();
+    }
+
+    private static void printCourse() {
+        StringJoiner sj = new StringJoiner(" | ");
+        for (Course course : Course.values()) sj.add(course.getName());
+
+        System.out.print(COURSE);
+        System.out.println(sj.toString());
+    }
+
+    private static void printMission() {
+        System.out.println(MISSION);
+        for (Level level : Level.values()) {
+            StringJoiner sj = new StringJoiner(" | ");
+            for (String mission : level.getMissionName()) sj.add(mission);
+
+            System.out.println(String.format(MISSION_FORMAT, level.getName(), sj.toString()));
+        }
+    }
+
+    private static void printSelectCourseLevelMissionMessage() {
+        System.out.println(SELECT_COURSE_LEVEL_MISSION_MESSAGE);
+        System.out.println(SELECT_COURSE_LEVEL_MISSION_EXAMPLE);
     }
 
     public static void printErrorMessage(String error) {
