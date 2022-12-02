@@ -14,9 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.min;
+import static pairmatching.util.Transform.splitInput;
 import static pairmatching.validator.CommandValidator.validateInvalidMenuCommand;
+import static pairmatching.validator.CommandsValidator.validateSize;
 
 public class PairMatchingController {
+    public void selectMenu() {
+        String menu = initMenuCommand();
+    }
+
     public void startPairMatching() {
         List<Crew> frontEndCrew = initCrew(Course.FRONTEND, "./src/main/resources/frontend-crew.md");
         List<Crew> backEndCrew = initCrew(Course.BACKEND, "./src/main/resources/backend-crew.md");
@@ -56,7 +62,6 @@ public class PairMatchingController {
         return crew;
     }
 
-
     private String initMenuCommand() {
         String command;
         try {
@@ -67,5 +72,11 @@ public class PairMatchingController {
             return initMenuCommand();
         }
         return command;
+    }
+
+    private String initCourseLevelMission() {
+        List<String> commands = splitInput(InputView.readCourseLevelMission());
+        validateSize(commands);
+
     }
 }
