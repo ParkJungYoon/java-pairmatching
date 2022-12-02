@@ -23,6 +23,7 @@ public class OutputView {
     private static final String SELECT_COURSE_LEVEL_MISSION_EXAMPLE = "ex) 백엔드, 레벨1, 자동차경주";
     private static final String SELECT_REMATCHING_MESSAGE = "매칭 정보가 있습니다. 다시 매칭하시겠습니까?";
     private static final String YES_OR_NO = "네 | 아니오";
+    private static final String INITIALIZATION_MESSAGE = "초기화 되었습니다.";
 
 
     public static void printSelectFeatureMessage() {
@@ -76,6 +77,10 @@ public class OutputView {
         for (Pair pair : pairResult) {
             System.out.println(pair.toString());
         }
+    }
+
+    public static void printInitializationMessage() {
+        System.out.println(INITIALIZATION_MESSAGE);
     }
 
     public static void printErrorMessage(String error) {
