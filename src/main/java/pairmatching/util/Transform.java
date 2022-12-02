@@ -9,6 +9,6 @@ public class Transform {
         String[] transformInput = Arrays.stream(input.split(","))
                 .map(String::trim)
                 .toArray(String[]::new);
-        return new ArrayList<>(List.of(transformInput));
+        return Arrays.asList(transformInput);
     }
 }

@@ -27,7 +27,8 @@ public class PairMatchingController {
     public void startPairMatching() {
         List<Crew> frontEndCrew = initCrew(Course.FRONTEND, "./src/main/resources/frontend-crew.md");
         List<Crew> backEndCrew = initCrew(Course.BACKEND, "./src/main/resources/backend-crew.md");
-        createPair(backEndCrew);
+//        createPair(backEndCrew);
+        initCourseLevelMission();
     }
 
     private void createPair(List<Crew> shuffledCrew) {
@@ -75,9 +76,16 @@ public class PairMatchingController {
         return command;
     }
 
-    private String initCourseLevelMission() {
-        List<String> commands = splitInput(InputView.readCourseLevelMission());
-        validateSize(commands);
-        validateCourseLevelMission(commands);
+    private List<String> initCourseLevelMission() {
+        List<String> commands;
+        try {
+            commands = splitInput(InputView.readCourseLevelMission());
+            validateSize(commands);
+            validateCourseLevelMission(commands);
+        } catch (IllegalArgumentException e) {
+            OutputView.printErrorMessage(e.getMessage());
+            return initCourseLevelMission();
+        }
+        return commands;
     }
 }
