@@ -18,7 +18,7 @@ public class MenuController {
         if (menu.equals(PAIR_MATCHING)) {
             pairMatchingController.startPairMatching();
         } else if (menu.equals(PAIR_LOOKUP)) {
-//            pairMatchingController.startPairLookUp;
+            pairMatchingController.startPairLookUp();
         } else if (menu.equals(INITIALIZATION)) {
             pairMatchingController.startInitialization();
         } else if (menu.equals(QUIT)) {

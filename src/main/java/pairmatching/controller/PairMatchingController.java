@@ -26,17 +26,17 @@ public class PairMatchingController {
         boolean hasResult = PairMatchingResult.hasMatchingResult(Course.getTypeByName(commands.get(0)), commands.get(2));
         if (hasResult) {
             if (initRematching()) {
-                createPair(Course.getTypeByName(commands.get(0)), commands.get(2));
+                getPair(Course.getTypeByName(commands.get(0)), commands.get(2));
                 PairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
             }
         }
         if (!hasResult) {
-            createPair(Course.getTypeByName(commands.get(0)), commands.get(2));
+            getPair(Course.getTypeByName(commands.get(0)), commands.get(2));
             PairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
         }
     }
 
-    private void createPair(Course course, String mission) {
+    private void getPair(Course course, String mission) {
         PairGeneratorImpl pairGenerator = new PairGeneratorImpl();
         List<Crew> shuffledCrew = new ArrayList<>();
         if (course == Course.FRONTEND) shuffledCrew = pairGenerator.generate(frontEndCrew);
@@ -54,6 +54,18 @@ public class PairMatchingController {
             pairMatching.add(new Pair(pair));
         }
         PairMatchingResult.savePairMatchingResult(course, mission, pairMatching);
+    }
+
+    public void startPairLookUp() {
+        List<String> commands = initCourseLevelMission();
+
+        boolean hasResult = PairMatchingResult.hasMatchingResult(Course.getTypeByName(commands.get(0)), commands.get(2));
+        if (hasResult) {
+            PairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
+        }
+        if (!hasResult) {
+            OutputView.printNothingToLookUpMessage();
+        }
     }
 
     public void startInitialization() {
