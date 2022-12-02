@@ -4,7 +4,9 @@ import org.junit.platform.commons.util.StringUtils;
 import org.mockito.internal.util.StringUtil;
 import pairmatching.domain.Course;
 import pairmatching.domain.Level;
+import pairmatching.domain.Pair;
 
+import java.util.List;
 import java.util.StringJoiner;
 
 public class OutputView {
@@ -68,6 +70,12 @@ public class OutputView {
     public static void printRematchingMessage() {
         System.out.println(SELECT_REMATCHING_MESSAGE);
         System.out.println(YES_OR_NO);
+    }
+
+    public static void printPairMatchingResult(List<Pair> pairResult) {
+        for (Pair pair : pairResult) {
+            System.out.println(pair.toString());
+        }
     }
 
     public static void printErrorMessage(String error) {
