@@ -1,7 +1,5 @@
 package pairmatching.view;
 
-import org.junit.platform.commons.util.StringUtils;
-import org.mockito.internal.util.StringUtil;
 import pairmatching.domain.Course;
 import pairmatching.domain.Level;
 import pairmatching.domain.Pair;
@@ -22,6 +20,7 @@ public class OutputView {
     private static final String SELECT_COURSE_LEVEL_MISSION_MESSAGE = "과정, 레벨, 미션을 선택하세요.";
     private static final String SELECT_COURSE_LEVEL_MISSION_EXAMPLE = "ex) 백엔드, 레벨1, 자동차경주";
     private static final String SELECT_REMATCHING_MESSAGE = "매칭 정보가 있습니다. 다시 매칭하시겠습니까?";
+    private static final String NOTHING_TO_LOOK_UP_MESSAGE = "[ERROR] 조회할 매칭 내역이 없습니다.";
     private static final String YES_OR_NO = "네 | 아니오";
     private static final String INITIALIZATION_MESSAGE = "초기화 되었습니다.";
 
@@ -77,6 +76,10 @@ public class OutputView {
         for (Pair pair : pairResult) {
             System.out.println(pair.toString());
         }
+    }
+
+    public static void printNothingToLookUpMessage() {
+        System.out.println(NOTHING_TO_LOOK_UP_MESSAGE);
     }
 
     public static void printInitializationMessage() {
