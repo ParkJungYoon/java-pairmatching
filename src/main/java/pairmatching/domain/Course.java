@@ -17,6 +17,15 @@ public enum Course {
         return this.name;
     }
 
+    public static Course getTypeByName(String input) {
+        for (Course type : Course.values()) {
+            if (Objects.equals(type.getName(), input)) {
+                return type;
+            }
+        }
+        return BACKEND;
+    }
+
     public static boolean hasCourseName(String name) {
         for (Course course : Course.values()) {
             if (Objects.equals(course.getName(), name)) return true;

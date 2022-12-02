@@ -3,6 +3,7 @@ package pairmatching.controller;
 import pairmatching.domain.Course;
 import pairmatching.domain.Crew;
 import pairmatching.domain.Pair;
+import pairmatching.domain.PairMatchingResult;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
@@ -16,19 +17,28 @@ import java.util.List;
 import static java.lang.Math.min;
 import static pairmatching.util.Transform.splitInput;
 import static pairmatching.validator.CommandValidator.validateInvalidMenuCommand;
+import static pairmatching.validator.CommandValidator.validateInvalidRematchingCommand;
 import static pairmatching.validator.CommandsValidator.validateCourseLevelMission;
 import static pairmatching.validator.CommandsValidator.validateSize;
 
 public class PairMatchingController {
     public void selectMenu() {
-        String menu = initMenuCommand();
-    }
-
-    public void startPairMatching() {
         List<Crew> frontEndCrew = initCrew(Course.FRONTEND, "./src/main/resources/frontend-crew.md");
         List<Crew> backEndCrew = initCrew(Course.BACKEND, "./src/main/resources/backend-crew.md");
-//        createPair(backEndCrew);
-        initCourseLevelMission();
+        PairMatchingResult pairMatchingResult = new PairMatchingResult();
+
+        String menu = initMenuCommand();
+        if (menu.equals("1")) {
+            startPairMatching(pairMatchingResult);
+        }
+    }
+
+    private void startPairMatching(PairMatchingResult pairMatchingResult) {
+        List<String> commands = initCourseLevelMission();
+        if (pairMatchingResult.hasMatchingResult(Course.getTypeByName(commands.get(0)), commands.get(2))) {
+            // 결과 있으면 재매칭 시도
+            initRematching();
+        }
     }
 
     private void createPair(List<Crew> shuffledCrew) {
@@ -87,5 +97,18 @@ public class PairMatchingController {
             return initCourseLevelMission();
         }
         return commands;
+    }
+
+    private boolean initRematching() {
+        boolean isRematching = false;
+        try {
+            String command = InputView.readRematching();
+            validateInvalidRematchingCommand(command);
+            if (command.equals("네")) isRematching = true;
+        } catch (IllegalArgumentException e) {
+            OutputView.printErrorMessage(e.getMessage());
+            return initRematching();
+        }
+        return isRematching;
     }
 }

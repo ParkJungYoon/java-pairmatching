@@ -19,6 +19,8 @@ public class OutputView {
     private static final String MISSION_FORMAT = "  - %s: %s";
     private static final String SELECT_COURSE_LEVEL_MISSION_MESSAGE = "과정, 레벨, 미션을 선택하세요.";
     private static final String SELECT_COURSE_LEVEL_MISSION_EXAMPLE = "ex) 백엔드, 레벨1, 자동차경주";
+    private static final String SELECT_REMATCHING_MESSAGE = "매칭 정보가 있습니다. 다시 매칭하시겠습니까?";
+    private static final String YES_OR_NO = "네 | 아니오";
 
 
     public static void printSelectFeatureMessage() {
@@ -61,6 +63,11 @@ public class OutputView {
     private static void printSelectCourseLevelMissionMessage() {
         System.out.println(SELECT_COURSE_LEVEL_MISSION_MESSAGE);
         System.out.println(SELECT_COURSE_LEVEL_MISSION_EXAMPLE);
+    }
+
+    public static void printRematchingMessage() {
+        System.out.println(SELECT_REMATCHING_MESSAGE);
+        System.out.println(YES_OR_NO);
     }
 
     public static void printErrorMessage(String error) {
