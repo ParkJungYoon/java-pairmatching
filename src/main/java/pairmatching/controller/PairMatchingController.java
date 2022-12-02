@@ -21,25 +21,27 @@ public class PairMatchingController {
     private final List<Crew> frontEndCrew = initCrew(Course.FRONTEND, "./src/main/resources/frontend-crew.md");
     private final List<Crew> backEndCrew = initCrew(Course.BACKEND, "./src/main/resources/backend-crew.md");
 
-    private void startPairMatching(PairMatchingResult pairMatchingResult, List<Crew> crews) {
-        PairGenerator pairGeneratorImpl = new PairGeneratorImpl();
-
+    public void startPairMatching() {
         List<String> commands = initCourseLevelMission();
-        boolean hasResult = pairMatchingResult.hasMatchingResult(Course.getTypeByName(commands.get(0)), commands.get(2));
+        boolean hasResult = PairMatchingResult.hasMatchingResult(Course.getTypeByName(commands.get(0)), commands.get(2));
         if (hasResult) {
-            // 결과 있으면 재매칭 시도해서 재매칭 안하면 그냥 조회
-            if (!initRematching()) {
-                pairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
+            if (initRematching()) {
+                createPair(Course.getTypeByName(commands.get(0)), commands.get(2));
+                PairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
             }
         }
         if (!hasResult) {
-            createPair(
-                    Course.getTypeByName(commands.get(0)), commands.get(1), pairMatchingResult, pairGeneratorImpl.generate(crews));
-            pairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
+            createPair(Course.getTypeByName(commands.get(0)), commands.get(2));
+            PairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
         }
     }
 
-    private void createPair(Course course, String mission, PairMatchingResult pairMatchingResult, List<Crew> shuffledCrew) {
+    private void createPair(Course course, String mission) {
+        PairGeneratorImpl pairGenerator = new PairGeneratorImpl();
+        List<Crew> shuffledCrew = new ArrayList<>();
+        if (course == Course.FRONTEND) shuffledCrew = pairGenerator.generate(frontEndCrew);
+        if (course == Course.BACKEND) shuffledCrew = pairGenerator.generate(backEndCrew);
+
         List<Pair> pairMatching = new ArrayList<>();
         int limit = 2;
         for (int id = 0; id < shuffledCrew.size(); id += limit) {
@@ -51,8 +53,12 @@ public class PairMatchingController {
             List<Crew> pair = new ArrayList<>(shuffledCrew.subList(id, min(id + limit, shuffledCrew.size())));
             pairMatching.add(new Pair(pair));
         }
+        PairMatchingResult.savePairMatchingResult(course, mission, pairMatching);
+    }
 
-        pairMatchingResult.savePairMatchingResult(course, mission, pairMatching);
+    public void startInitialization() {
+        OutputView.printInitializationMessage();
+        PairMatchingResult.initialization();
     }
 
     private List<Crew> initCrew(Course course, String pathName) {
