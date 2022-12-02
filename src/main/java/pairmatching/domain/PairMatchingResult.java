@@ -29,4 +29,9 @@ public class PairMatchingResult {
 
         OutputView.printPairMatchingResult(pairResult);
     }
+
+    public static void initialization() {
+        frontEndResult.clear();
+        backEndResult.clear();
+    }
 }
