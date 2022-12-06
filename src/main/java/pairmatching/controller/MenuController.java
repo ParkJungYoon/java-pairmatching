@@ -1,6 +1,5 @@
 package pairmatching.controller;
 
-import pairmatching.domain.PairMatchingResult;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
@@ -17,11 +16,14 @@ public class MenuController {
         String menu = initMenuCommand();
         if (menu.equals(PAIR_MATCHING)) {
             pairMatchingController.startPairMatching();
-        } else if (menu.equals(PAIR_LOOKUP)) {
+        }
+        if (menu.equals(PAIR_LOOKUP)) {
             pairMatchingController.startPairLookUp();
-        } else if (menu.equals(INITIALIZATION)) {
+        }
+        if (menu.equals(INITIALIZATION)) {
             pairMatchingController.startInitialization();
-        } else if (menu.equals(QUIT)) {
+        }
+        if (menu.equals(QUIT)) {
             return;
         }
         selectMenu();
