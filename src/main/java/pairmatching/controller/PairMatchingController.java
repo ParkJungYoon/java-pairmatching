@@ -4,10 +4,6 @@ import pairmatching.domain.*;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
