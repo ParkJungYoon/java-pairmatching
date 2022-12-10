@@ -18,9 +18,6 @@ import static pairmatching.validator.CommandsValidator.validateCourseLevelMissio
 import static pairmatching.validator.CommandsValidator.validateSize;
 
 public class PairMatchingController {
-    private final List<Crew> frontEndCrew = initCrew(Course.FRONTEND, "./src/main/resources/frontend-crew.md");
-    private final List<Crew> backEndCrew = initCrew(Course.BACKEND, "./src/main/resources/backend-crew.md");
-
     public void startPairMatching() {
         List<String> commands = initCourseLevelMission();
         boolean hasResult = PairMatchingResult.hasMatchingResult(Course.getTypeByName(commands.get(0)), commands.get(2));
@@ -38,8 +35,8 @@ public class PairMatchingController {
     private void getPair(Course course, String mission) {
         PairGeneratorImpl pairGenerator = new PairGeneratorImpl();
         List<Crew> shuffledCrew = new ArrayList<>();
-        if (course == Course.FRONTEND) shuffledCrew = pairGenerator.generate(frontEndCrew);
-        if (course == Course.BACKEND) shuffledCrew = pairGenerator.generate(backEndCrew);
+        if (course == Course.FRONTEND) shuffledCrew = pairGenerator.generate(Crews.getCrews(Course.FRONTEND));
+        if (course == Course.BACKEND) shuffledCrew = pairGenerator.generate(Crews.getCrews(Course.BACKEND));
 
         List<Pair> pairMatching = createPair(shuffledCrew);
         PairMatchingResult.savePairMatchingResult(course, mission, pairMatching);
@@ -76,20 +73,20 @@ public class PairMatchingController {
         PairMatchingResult.initialization();
     }
 
-    private List<Crew> initCrew(Course course, String pathName) {
-        List<Crew> crew = new ArrayList<>();
-
-        File file = new File(pathName);
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                crew.add(new Crew(course, line));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return crew;
-    }
+//    private List<Crew> initCrew(Course course, String pathName) {
+//        List<Crew> crew = new ArrayList<>();
+//
+//        File file = new File(pathName);
+//        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+//            String line;
+//            while ((line = br.readLine()) != null) {
+//                crew.add(new Crew(course, line));
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return crew;
+//    }
 
     private List<String> initCourseLevelMission() {
         List<String> commands;
