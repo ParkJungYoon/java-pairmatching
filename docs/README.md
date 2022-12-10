@@ -47,7 +47,11 @@
 
 ### 3. PairMatchingResult
 - 상태: Map<Mission, List<Pair>>
+- 페어 매칭 결과를 저장하는 객체, 싱글톤
 
+### 4. Crews
+- 상태: List<Crew> frontEndCrew, List<Crew> backEndCrew
+- 페어 목록을 저장하는 객체, 싱글톤
 
 ### ✔ 에러 처리
 
