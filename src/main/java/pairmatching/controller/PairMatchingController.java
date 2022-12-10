@@ -24,12 +24,12 @@ public class PairMatchingController {
         if (hasResult) {
             if (initRematching()) {
                 getPair(Course.getTypeByName(commands.get(0)), commands.get(2));
-                PairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
+                OutputView.printPairMatchingResult(Course.getTypeByName(commands.get(0)), commands.get(2));
                 return;
             }
         }
         getPair(Course.getTypeByName(commands.get(0)), commands.get(2));
-        PairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
+        OutputView.printPairMatchingResult(Course.getTypeByName(commands.get(0)), commands.get(2));
     }
 
     private void getPair(Course course, String mission) {
@@ -62,7 +62,7 @@ public class PairMatchingController {
 
         boolean hasResult = PairMatchingResult.hasMatchingResult(Course.getTypeByName(commands.get(0)), commands.get(2));
         if (hasResult) {
-            PairMatchingResult.printPairMatching(Course.getTypeByName(commands.get(0)), commands.get(2));
+            OutputView.printPairMatchingResult(Course.getTypeByName(commands.get(0)), commands.get(2));
             return;
         }
         OutputView.printNothingToLookUpMessage();
@@ -72,21 +72,6 @@ public class PairMatchingController {
         OutputView.printInitializationMessage();
         PairMatchingResult.initialization();
     }
-
-//    private List<Crew> initCrew(Course course, String pathName) {
-//        List<Crew> crew = new ArrayList<>();
-//
-//        File file = new File(pathName);
-//        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                crew.add(new Crew(course, line));
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return crew;
-//    }
 
     private List<String> initCourseLevelMission() {
         List<String> commands;

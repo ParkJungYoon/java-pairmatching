@@ -3,6 +3,7 @@ package pairmatching.view;
 import pairmatching.domain.Course;
 import pairmatching.domain.Level;
 import pairmatching.domain.Pair;
+import pairmatching.domain.PairMatchingResult;
 
 import java.util.List;
 import java.util.StringJoiner;
@@ -72,7 +73,14 @@ public class OutputView {
         System.out.println(YES_OR_NO);
     }
 
-    public static void printPairMatchingResult(List<Pair> pairResult) {
+//    public static void printPairMatchingResult(List<Pair> pairResult) {
+//        for (Pair pair : pairResult) {
+//            System.out.println(pair.toString());
+//        }
+//    }
+
+    public static void printPairMatchingResult(Course course, String missionName) {
+        List<Pair> pairResult = PairMatchingResult.getPairByCourseMission(course, missionName);
         for (Pair pair : pairResult) {
             System.out.println(pair.toString());
         }
