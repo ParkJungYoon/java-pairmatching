@@ -22,16 +22,27 @@ public class PairMatchingResult {
         if (course == Course.BACKEND) backEndResult.put(missionName, pairMatchingResult);
     }
 
-    public static void printPairMatching(Course course, String missionName) {
-        List<Pair> pairResult = new ArrayList<>();
-        if (course == Course.FRONTEND) pairResult = frontEndResult.get(missionName);
-        if (course == Course.BACKEND) pairResult = backEndResult.get(missionName);
-
-        OutputView.printPairMatchingResult(pairResult);
-    }
-
     public static void initialization() {
         frontEndResult.clear();
         backEndResult.clear();
     }
+
+    public static List<Pair> getPairByCourseMission(Course course, String missionName) {
+        if (course == Course.FRONTEND) return frontEndResult.get(missionName);
+        return  backEndResult.get(missionName);
+    }
+
+//    private static void validateDuplicatePairMatching(Course course, String missionName) {
+//        if (course == Course.FRONTEND) {
+//            List<String> sameLevelMissions = Level.getMissionAtTheSameLevel(missionName);
+//            for (String mission : sameLevelMissions) {
+//                if (frontEndResult.containsKey(mission)) {
+//                    List<Pair> oneResult = frontEndResult.get(mission);
+//                }
+//            }
+//        }
+//        if (course == Course.BACKEND) {
+//            backEndResult.get(missionName);
+//        }
+//    }
 }
